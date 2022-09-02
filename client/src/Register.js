@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-let history = useNavigate();
+
 const Register = () =>{
+    let history = useNavigate();
     const [data, setData] = useState({
         first_name:"",
         last_name:"",
@@ -11,7 +12,7 @@ const Register = () =>{
         password:""
     })
     const handleChange=(e)=>{
-        setData({ ...data, [e.target.name]: e.target.value});
+        setData({ ...data, [e.target.name]: e.target.value.trim()});
         
     }
     const submitForm=(e)=>{
@@ -24,9 +25,9 @@ const Register = () =>{
 
         }
         console.log(sendData);
-        axios.post('../server/register.php')
+        axios.post('http://localhost/server/register.php', sendData)
         .then((result)=>{
-            if (result.data.Statuss == 'Invalid') {alert('Неверный пользователь')}
+            if (result.data.Status == 'Invalid') {alert('Неверный пользователь')}
             else {history('/Login')}
         })
     }
@@ -40,7 +41,7 @@ const Register = () =>{
         <div className="row">
             <div className="col-md-6">Имя</div> 
             <div className="col-md-6">
-                <input type="text" name="first_name" className="form-control" onChange={handleChange} value={data.first_name}/>
+                <input type="text"  maxLength="20" name="first_name" className="form-control" onChange={handleChange} value={data.first_name}/>
 
             </div>
 
@@ -48,7 +49,7 @@ const Register = () =>{
         <div className="row">
             <div className="col-md-6">Фамилия</div> 
             <div className="col-md-6">
-                <input type="text" name="last_name" className="form-control" onChange={handleChange} value={data.last_name}/>
+                <input type="text"  maxLength="20" name="last_name" className="form-control" onChange={handleChange} value={data.last_name}/>
 
             </div>
 
@@ -56,7 +57,7 @@ const Register = () =>{
         <div className="row">
             <div className="col-md-6">Email</div> 
             <div className="col-md-6">
-                <input type="text" name="email" className="form-control" onChange={handleChange} value={data.email}/>
+                <input type="email" name="email" className="form-control" onChange={handleChange} value={data.email}/>
                 
             </div>
 
@@ -64,7 +65,7 @@ const Register = () =>{
         <div className="row">
             <div className="col-md-6">Пароль</div> 
             <div className="col-md-6">
-                <input type="text" name="password" className="form-control" onChange={handleChange} value={data.password}/>
+                <input type="password" name="password" className="form-control" onChange={handleChange} value={data.password}/>
                 
             </div>
 

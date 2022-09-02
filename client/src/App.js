@@ -1,6 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import Header from './Header';
+import Dashboard from './Dashboard';
 import Home from './Home';
 import Login from './Login';
 import Register from './Register';
@@ -14,6 +14,7 @@ function App() {
         <Route path="/" element={<Home/>}  />
         <Route path="/login" element={<Login/>}  />
         <Route path="/register" element={<Register/>}  />
+        <Route path="/dashboard" element={<Dashboard/>}  />
       </Routes>
     </div>
     </Router>
